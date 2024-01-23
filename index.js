@@ -45,9 +45,11 @@ app.post('/generate-recipe', async (req, res) => {
   res.json({recipe});
 });
 
-// Read the self-signed certificate and private key with passphrase
+// Read the SSL certificate and private key
+// Read the SSL certificate and private key
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/bot.sourcemachines.com/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/bot.sourcemachines.com/fullchain.pem', 'utf8');
+
 
 
 // const credentials = { key: privateKey, cert: certificate, passphrase: passphrase };
