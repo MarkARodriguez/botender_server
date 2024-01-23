@@ -6,8 +6,12 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: 'https://rococo-paletas-a9fd6a.netlify.app', // Replace with your Netlify domain
+  optionsSuccessStatus: 200
+};
 
+app.use(cors(corsOptions));
 const openai = new OpenAIApi({
   api_key: process.env.OPENAI_API_KEY
 });
