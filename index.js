@@ -52,7 +52,7 @@ const passphrase = 'ronaldraygun'; // Replace 'your-passphrase' with the passphr
 
 const credentials = { key: privateKey, cert: certificate, passphrase: passphrase };
 
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 3000;
 
 // Create an HTTPS server using the self-signed certificate
 const server = https.createServer(credentials, app);
