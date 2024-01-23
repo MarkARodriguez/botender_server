@@ -7,12 +7,12 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-const corsOptions = {
-  origin: 'https://rococo-paletas-a9fd6a.netlify.app', // Replace with your Netlify domain
-  optionsSuccessStatus: 200
-};
+// const corsOptions = {
+//   origin: 'https://rococo-paletas-a9fd6a.netlify.app', // Replace with your Netlify domain
+//   optionsSuccessStatus: 200
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 const openai = new OpenAIApi({
   api_key: process.env.OPENAI_API_KEY
 });
@@ -46,16 +46,16 @@ app.post('/generate-recipe', async (req, res) => {
 });
 
 // Read the self-signed certificate and private key with passphrase
-const privateKey = fs.readFileSync('key.pem', 'utf8');
-const certificate = fs.readFileSync('cert.pem', 'utf8');
-const passphrase = 'ronaldraygun'; // Replace 'your-passphrase' with the passphrase you entered during certificate generation
+// const privateKey = fs.readFileSync('key.pem', 'utf8');
+// const certificate = fs.readFileSync('cert.pem', 'utf8');
+// const passphrase = 'ronaldraygun'; // Replace 'your-passphrase' with the passphrase you entered during certificate generation
 
-const credentials = { key: privateKey, cert: certificate, passphrase: passphrase };
+// const credentials = { key: privateKey, cert: certificate, passphrase: passphrase };
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 
-// Create an HTTPS server using the self-signed certificate
-const server = https.createServer(credentials, app);
+// // Create an HTTPS server using the self-signed certificate
+// const server = https.createServer(credentials, app);
 
 server.listen(PORT, () => {
   console.log(`Server running on HTTPS port ${PORT}`);
