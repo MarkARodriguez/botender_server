@@ -46,17 +46,18 @@ app.post('/generate-recipe', async (req, res) => {
 });
 
 // Read the self-signed certificate and private key with passphrase
-// const privateKey = fs.readFileSync('key.pem', 'utf8');
-// const certificate = fs.readFileSync('cert.pem', 'utf8');
-// const passphrase = 'ronaldraygun'; // Replace 'your-passphrase' with the passphrase you entered during certificate generation
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/bot.sourcemachines.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/bot.sourcemachines.com/fullchain.pem', 'utf8');
+
 
 // const credentials = { key: privateKey, cert: certificate, passphrase: passphrase };
 
-const PORT = process.env.PORT || 3000;
 
 // // Create an HTTPS server using the self-signed certificate
 // const server = https.createServer(credentials, app);
-
-app.listen(PORT, () => {
-  console.log(`Server running on HTTPS port ${PORT}`);
+https.createServer({
+  key: privateKey,
+  cert: certificate
+}, app).listen(3000, () => {
+  console.log('Server running at https://localhost:3000/');
 });
