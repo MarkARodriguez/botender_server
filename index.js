@@ -1,8 +1,9 @@
 require("dotenv").config();
+const https = require('https');
+const fs = require('fs'); // Required to read the SSL files
 const express = require('express');
 const OpenAIApi = require('openai');
 const cors = require('cors');
-
 
 const app = express();
 app.use(express.json());
@@ -44,7 +45,18 @@ app.post('/generate-recipe', async (req, res) => {
   res.json({recipe});
 });
 
+// Read the self-signed certificate and private key with passphrase
+const privateKey = fs.readFileSync('key.pem', 'utf8');
+const certificate = fs.readFileSync('cert.pem', 'utf8');
+const passphrase = 'ronaldraygun'; // Replace 'your-passphrase' with the passphrase you entered during certificate generation
+
+const credentials = { key: privateKey, cert: certificate, passphrase: passphrase };
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+
+// Create an HTTPS server using the self-signed certificate
+const server = https.createServer(credentials, app);
+
+server.listen(PORT, () => {
+  console.log(`Server running on HTTPS port ${PORT}`);
 });
